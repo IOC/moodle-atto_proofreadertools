@@ -51,7 +51,7 @@ function atto_proofreadertools_params_for_js($elementid, $options, $fpoptions) {
     if (!$context) {
         $context = context_system::instance();
     }
-    $enablebutton = has_capability('moodle/course:manageactivities', $context);
+    $enablebutton = has_capability('gradereport/grader:view', $context);
 
     return array('enablebutton' => $enablebutton);
 }
