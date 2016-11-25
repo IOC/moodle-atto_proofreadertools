@@ -80,15 +80,18 @@ Y.namespace('M.atto_proofreadertools').Button = Y.Base.create('button', Y.M.edit
         var currentSelection = host.getSelection();
 
         // Build the tag.
-        var html = '<span class="blauioc">[' + currentSelection +']</span>';
+        var html = '<span class="blauioc">[<span>' + currentSelection +'</span>]</span>';
 
         // Position caret.
         var node = host.insertContentAtFocusPoint(html);
-        var domNode = node.getDOMNode();
-        var range = rangy.createRange();
-        var selection = rangy.getSelection();
-        range.setStartAfter(domNode);
-        selection.setSingleRange(range);
+        var domNode = node.getDOMNode().childNodes[1];
+        var range = window.rangy.createRange();
+        var selection = window.rangy.getSelection();
+
+        range.setStartBefore(domNode);
+        range.setEnd(domNode, domNode.childNodes.length ? 1 : 0 );
+        selection.removeAllRanges();
+        selection.addRange(range);
 
         this.markUpdated();
     },
